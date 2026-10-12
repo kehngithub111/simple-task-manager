@@ -1,0 +1,195 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Workbench · theme: Cobalt · enrichment: none (typography only) · nav: N1a · footer: Ft2 */
+/* Hallmark · pre-emit critique: P5 H4 E5 S5 R5 V4 · contrast: pass (40–41) · nav: N1a · footer: Ft2 · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50–57) */
+@import "tailwindcss";
+
+@theme {
+  --color-paper: oklch(98.5% 0.004 250);
+  --color-paper-2: oklch(96.2% 0.006 250);
+  --color-rule: oklch(90.5% 0.008 250);
+  --color-rule-2: oklch(86% 0.01 250);
+  --color-muted: oklch(48% 0.015 255);
+  --color-ink-2: oklch(34% 0.018 257);
+  --color-ink: oklch(24% 0.02 258);
+  --color-accent: oklch(58% 0.2 256);
+  --color-accent-ink: oklch(98.5% 0.004 250);
+  --color-graphite: oklch(22% 0.016 260);
+  --color-graphite-line: oklch(38% 0.015 260);
+  --color-graphite-muted: oklch(70% 0.02 255);
+  --color-focus: oklch(58% 0.2 256);
+  --color-danger: oklch(55% 0.18 25);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  --text-display: clamp(2.75rem, 5vw + 1rem, 4.5rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --radius-card: 10px;
+  --radius-control: 6px;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Instant focus ring — never animated */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Pressed state for every button — one rule, no per-button variants */
+button:active {
+  filter: brightness(0.96);
+}
+
+/* Display headings wrap inside long words */
+h1,
+h2 {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Kicker — mono machine-readout voice */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.kicker__tick {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-accent);
+  margin-right: 0.5rem;
+  vertical-align: baseline;
+}
+
+/* Typographic link with cobalt underline-grow */
+.link-underline {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule-2);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition:
+    text-decoration-color var(--dur-short) var(--ease-out),
+    color var(--dur-short) var(--ease-out);
+  white-space: nowrap;
+}
+
+.link-underline:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* Graphite code card — typographic frame, no redrawn chrome */
+.code-card {
+  background: var(--color-graphite);
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px oklch(24% 0.02 258 / 0.05);
+  font-family: var(--font-mono);
+  min-width: 0;
+}
+
+.code-card pre {
+  overflow-x: auto;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.tok-key {
+  color: var(--color-accent-ink);
+  font-weight: 600;
+}
+
+.tok-str {
+  color: oklch(82% 0.03 250);
+}
+
+.tok-punct {
+  color: oklch(60% 0.02 255);
+}
+
+.status-ok {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-control);
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* One orchestrated entrance */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: reveal-reduced 150ms linear forwards;
+  }
+
+  @keyframes reveal-reduced {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 150ms !important;
+    transition-duration: 150ms !important;
+  }
+}
